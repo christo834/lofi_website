@@ -4,7 +4,7 @@ import Navbar from '@/components/Navbar';
 import TextTransition, { presets } from 'react-text-transition';
 
 export default function Home() {
-  const messages = ["Welcome", "It is time", "to relax and play", "Some LOFI music", "Keep powering through", "You got this"];
+  const messages = ["Welcome", "It is time", "to relax and play", "Some LOFI music", "Keep powering through", "You got this", "Never stop and", "Keep calm and move forward"];
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -12,7 +12,7 @@ export default function Home() {
       setIndex(index => (index + 1) % messages.length);
     }, 3000); // Change text every 3000 milliseconds (3 seconds)
     return () => clearInterval(intervalId);
-  }, []);
+  }, [messages.length]); // Include messages.length in the dependency array
 
   return (
     <div className="relative min-h-screen">
@@ -30,7 +30,7 @@ export default function Home() {
           </h1>
           <div className="flex space-x-4 mt-4">
             {["/img/button-bg1.jpg", "/img/button-bg2.jpg", "/img/button-bg3.jpg"].map((imgSrc, idx) => (
-              <div className="relative">
+              <div key={idx} className="relative"> 
                 <img src={imgSrc} alt={`Background ${idx + 1}`} className="absolute inset-0 w-full h-full object-cover opacity-50" />
                 <button className="relative z-10 bg-transparent border border-white text-white py-2 px-4 rounded animate-pulse">
                   Button {idx + 1}
@@ -44,4 +44,3 @@ export default function Home() {
     </div>
   );
 }
-
